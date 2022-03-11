@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { winnerObject } from "src/containers/Home";
-import { extractJSON, saveJSON } from "src/services/localStorage";
+import { clonseJSON, extractJSON, saveJSON } from "src/services/localStorage";
 import Button from "src/ui-core/Button";
 import NumberInput from "src/ui-core/NumberInput";
-import { LOCAL_STORAGE_KEYS } from "src/utils/enums";
+import { LOCAL_STORAGE_KEYS, TOAST_MESSAGES } from "src/utils/enums";
+import { ToastContext } from "src/context/ToastContext";
+
 import styles from "src/assets/styles/Home.module.css";
 
 const StepTwo = () => {
   const [winnerData, setWinnerData] = useState<winnerObject>(() =>
-    extractJSON(LOCAL_STORAGE_KEYS.WT_DATA)
+    clonseJSON(extractJSON(LOCAL_STORAGE_KEYS.WT_DATA))
   );
+  const { setMessage, showToast } = useContext(ToastContext);
+
+  const areValuesChanged = () => {
+    const savedValues: winnerObject = clonseJSON(
+      extractJSON(LOCAL_STORAGE_KEYS.WT_DATA)
+    );
+    return (
+      savedValues.firstPlayerWins !== winnerData.firstPlayerWins ||
+      savedValues.secondPlayerWins !== winnerData.secondPlayerWins
+    );
+  };
 
   const handleValueChange = (player: "first" | "second", wins: number) => {
     const newValues = { ...winnerData };
@@ -28,7 +41,11 @@ const StepTwo = () => {
     }
   };
 
-  const handleSave = () => saveJSON(LOCAL_STORAGE_KEYS.WT_DATA, winnerData);
+  const handleSave = () => {
+    saveJSON(LOCAL_STORAGE_KEYS.WT_DATA, winnerData);
+    setMessage(TOAST_MESSAGES.UPDATED_VALUES_SUCCESSFULLY);
+    showToast();
+  };
 
   return (
     <React.Fragment>
@@ -68,7 +85,9 @@ const StepTwo = () => {
           </span>
         </p>
       </div>
-      <Button onClick={handleSave}>Save</Button>
+      <Button disabled={!areValuesChanged()} onClick={handleSave}>
+        Save
+      </Button>
     </React.Fragment>
   );
 };

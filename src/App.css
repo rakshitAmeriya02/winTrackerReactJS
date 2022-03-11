@@ -7,6 +7,31 @@
   cursor: pointer;
 }
 
+.toast {
+  position: absolute;
+  background: #ccc;
+  text-align: center;
+  right: 0;
+  top: 0;
+  right: 0;
+  padding: 6px 12px;
+  width: 100%;
+  animation: slideDown 3s;
+  transform: translateY(-100px);
+  border: 1px solid black;
+  box-sizing: border-box;
+  font-size: 22px;
+}
+@keyframes slideDown {
+  0%,
+  100% {
+    -webkit-transform: translateY(-100px);
+  }
+  10%,
+  90% {
+    -webkit-transform: translateY(0px);
+  }
+}
 .bold {
   font-weight: bold;
 }

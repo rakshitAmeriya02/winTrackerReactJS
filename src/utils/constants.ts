@@ -5,3 +5,5 @@ export const IMAGE_CONSTANT = {
   minusIcon,
   plusIcon,
 };
+
+export const TOAST_TIMEOUT = 3000;

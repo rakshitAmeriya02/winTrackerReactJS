@@ -14,5 +14,13 @@ export const extractJSON = (key: string) => {
   }
 };
 
+export const clonseJSON = (data: any) => {
+  try {
+    return JSON.parse(JSON.stringify(data));
+  } catch {
+    return data;
+  }
+};
+
 export const saveJSON = (key: string, value: any) =>
   setItem(key, JSON.stringify(value));

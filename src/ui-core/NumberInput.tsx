@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styles from "src/assets/styles/NumberInput.module.css";
-import { IMAGE_CONSTANT } from "src/utils/constant";
+import { IMAGE_CONSTANT } from "src/utils/constants";
 
 interface NumberInputProps {
   callback: (value: number) => void;
