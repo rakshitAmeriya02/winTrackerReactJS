@@ -1,0 +1,16 @@
+.inputFieldWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 8px 12px;
+}
+
+.inputLabel {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.inputField {
+  min-height: 30px;
+  padding: 6px 8px;
+  font-size: 16px;
+}

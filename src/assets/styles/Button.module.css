@@ -1,0 +1,11 @@
+.customButton {
+  padding: 12px 24px;
+  margin: 8px 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+}
+.customButton:disabled {
+  cursor: not-allowed;
+}
