@@ -13,6 +13,7 @@
   min-height: 340px;
   justify-content: space-between;
   box-shadow: 0px 6px 10px #0000004d;
+  position: relative;
 }
 .block {
   text-align: left;
@@ -37,6 +38,15 @@
 .resultsBlock > p {
   display: flex;
   justify-content: space-between;
+}
+.backBtnWrap {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.backBtnWrap > img {
+  width: 20px;
+  cursor: pointer;
 }
 @media (max-width: 560px) {
   .homeContainer {

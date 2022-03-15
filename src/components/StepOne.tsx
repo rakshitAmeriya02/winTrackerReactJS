@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { saveJSON } from "src/services/localStorage";
+import { winnerObject } from "src/containers/Home";
+import { clonseJSON, extractJSON, saveJSON } from "src/services/localStorage";
 import Button from "src/ui-core/Button";
 import InputField from "src/ui-core/InputField";
 import { LOCAL_STORAGE_KEYS } from "src/utils/enums";
@@ -9,6 +10,9 @@ interface StepOneProps {
 }
 
 const StepOne = ({ goToStepTwo }: StepOneProps) => {
+  const winnerData: winnerObject = clonseJSON(
+    extractJSON(LOCAL_STORAGE_KEYS.WT_DATA)
+  );
   const firstInputRef = useRef<HTMLInputElement | null>(null);
   const secondInputRef = useRef<HTMLInputElement | null>(null);
   const handleSubmit = () => {
@@ -20,8 +24,8 @@ const StepOne = ({ goToStepTwo }: StepOneProps) => {
         id,
         firstPlayer,
         secondPlayer,
-        firstPlayerWins: 0,
-        secondPlayerWins: 0,
+        firstPlayerWins: winnerData.firstPlayerWins || 0,
+        secondPlayerWins: winnerData.secondPlayerWins || 0,
       };
       saveJSON(LOCAL_STORAGE_KEYS.WT_DATA, data);
       goToStepTwo();
@@ -30,16 +34,20 @@ const StepOne = ({ goToStepTwo }: StepOneProps) => {
   return (
     <React.Fragment>
       <InputField
-        ref={firstInputRef}
+        defaultValue={winnerData.firstPlayer}
         label="Player 1 Name"
         placeholder="e.g., Tony Stark"
+        ref={firstInputRef}
       />
       <InputField
-        ref={secondInputRef}
+        defaultValue={winnerData.secondPlayer}
         label="Player 2 Name"
         placeholder="e.g., Steve Rogers"
+        ref={secondInputRef}
       />
-      <Button onClick={handleSubmit}>Continue</Button>
+      <Button onClick={handleSubmit}>
+        {winnerData ? "Update" : "Continue"}
+      </Button>
     </React.Fragment>
   );
 };

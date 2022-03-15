@@ -4,6 +4,7 @@ import styles from "src/assets/styles/Home.module.css";
 import { LOCAL_STORAGE_KEYS } from "src/utils/enums";
 import StepOne from "src/components/StepOne";
 import StepTwo from "src/components/StepTwo";
+import { IMAGE_CONSTANT } from "src/utils/constants";
 
 export interface winnerObject {
   id: number;
@@ -30,9 +31,22 @@ const Home = () => {
     }
   };
 
+  const handleGoBack = () => setStep(1);
+
   return (
     <div className={styles.homePage}>
-      <div className={styles.homeContainer}>{renderContent()}</div>
+      <div className={styles.homeContainer}>
+        {step === 2 && (
+          <div className={styles.backBtnWrap}>
+            <img
+              onClick={handleGoBack}
+              src={IMAGE_CONSTANT.pencilIcon}
+              alt="back"
+            />
+          </div>
+        )}
+        {renderContent()}
+      </div>
     </div>
   );
 };
